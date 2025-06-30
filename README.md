@@ -7,20 +7,20 @@ It uses **HTML**, **CSS**, **JavaScript**, **PHP**, **MySQL**, and **PHPMailer**
 
 ## 📌 How to run locally
 
-1️⃣ **Install XAMPP**
+### 1️⃣ **Install XAMPP**
 
 - Download and install [XAMPP](https://www.apachefriends.org/).
 - Start **Apache** and **MySQL** in the XAMPP Control Panel.
 
 ---
 
-2️⃣ **Download this project as a ZIP**
+### 2️⃣ **Download this project as a ZIP**
 
 - Extract the folder.
 
 ---
 
-3️⃣ **Place the project folder inside `xampp/htdocs`**
+### 3️⃣ **Place the project folder inside `xampp/htdocs`**
 
 ---
 
