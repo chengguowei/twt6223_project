@@ -1,0 +1,414 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>University Venue Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* --- Keep your full CSS here exactly as before --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f9faff 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            transform: translateY(-5px);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            color: #4b5563;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #4f46e5;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tab-button.active::after {
+            opacity: 1;
+        }
+
+        .tab-button.active {
+            color: #4f46e5;
+        }
+
+        .tab-button:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #1f2937;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: #4f46e5;
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            margin-top: 8px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            margin-top: 30px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(90deg, #4338ca, #6d28d9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #4f46e5;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        td {
+            background: #fff;
+            color: #374151;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .tabs {
+                gap: 8px;
+            }
+
+            .tab-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center; font-size: 32px; font-weight: 700; color: #1f2937; margin-bottom: 20px;">
+            MMU Venue Management System
+        </h1>
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('booking')">Booking</button>
+            <button class="tab-button" onclick="openTab('waitlist')">Waitlist</button>
+            <button class="tab-button" onclick="openTab('calendar')">Calendar</button>
+            <button class="tab-button" onclick="openTab('history')">Booking History</button>
+        </div>
+
+        <!-- Booking Tab -->
+        <div id="booking" class="tab-content active">
+            <h2>Book a Venue</h2>
+            <form action="booking.php" method="POST">
+                <label>Email</label>
+                <input type="email" name="email" required />
+                <label>Venue</label>
+                <select name="venue_id" required>
+                    <option value="">-- Select Venue --</option>
+                    <option value="1">Main Hall</option>
+                    <option value="2">Exam Hall</option>
+                    <option value="3">Sport Hall</option>
+                    <option value="4">CLC</option>
+                    <option value="5">Library Room</option>
+                </select>
+                <label>Booking Date</label>
+                <input type="date" name="booking_date" required />
+                <label>Start Time</label>
+                <select name="start_time" required>
+                    <option value="">-- Select Start Time --</option>
+                    <option value="08:00">08:00</option>
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                </select>
+                <label>Duration (Hours)</label>
+                <select name="duration" required>
+                    <option value="">-- Select Duration --</option>
+                    <option value="1">1 Hour</option>
+                    <option value="2">2 Hours</option>
+                    <option value="3">3 Hours</option>
+                </select>
+                <label>Booking Purpose</label>
+                <textarea name="booking_purpose" required></textarea>
+                <button type="submit" class="submit-btn">Submit Booking</button>
+            </form>
+        </div>
+
+        <!-- Waitlist Tab -->
+        <div id="waitlist" class="tab-content">
+            <h2>Waitlisted Bookings</h2>
+            <div id="waitlistContent">Loading waitlist...</div>
+        </div>
+
+        <!-- Calendar Tab -->
+        <div id="calendar" class="tab-content">
+            <h2>Venue Calendar View</h2>
+            <label for="calendarVenue">Select Venue</label>
+            <select id="calendarVenue" onchange="filterCalendar()">
+                <option value="">-- Show All Venues --</option>
+                <option value="Main Hall">Main Hall</option>
+                <option value="Exam Hall">Exam Hall</option>
+                <option value="Sport Hall">Sport Hall</option>
+                <option value="CLC">CLC</option>
+                <option value="Library Room">Library Room</option>
+            </select>
+            <table id="calendarTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Venue</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Booking History Tab -->
+        <div id="history" class="tab-content">
+            <h2>Booking History</h2>
+            <div id="historyContent">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabId === "history") {
+                fetch('history.php')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        document.getElementById('historyContent').innerHTML = data;
+                    })
+                    .catch(err => {
+                        document.getElementById('historyContent').innerHTML = "Failed to load booking history.";
+                    });
+            }
+
+            if (tabId === "waitlist") {
+                fetch('waitlist.php')
+                    .then(res => res.text())
+                    .then(data => document.getElementById('waitlistContent').innerHTML = data);
+            }
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        document.querySelector("input[name='booking_date']").setAttribute("min", today);
+
+        let allBookings = [];
+        fetch('calendar.php')
+            .then(response => response.json())
+            .then(data => {
+                allBookings = data;
+                filterCalendar();
+            })
+            .catch(err => {
+                console.error("Error loading calendar data:", err);
+            });
+
+        function filterCalendar() {
+            const selectedVenue = document.getElementById("calendarVenue").value;
+            const tbody = document.querySelector("#calendarTable tbody");
+            tbody.innerHTML = "";
+
+            let found = false;
+
+            allBookings.forEach(entry => {
+                if (!selectedVenue || entry.venue === selectedVenue) {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+        <td>${entry.date}</td>
+        <td>${entry.time}</td>
+        <td>${entry.venue}</td>
+      `;
+                    tbody.appendChild(tr);
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+      <td colspan="3" style="text-align:center; color:#888;">No bookings found.</td>
+    `;
+                tbody.appendChild(tr);
+            }
+        }
+    </script>
+</body>
+
+</html>
